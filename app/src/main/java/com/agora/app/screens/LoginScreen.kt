@@ -22,7 +22,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit = {}) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF1A6B8A))
+            .background(MaterialTheme.colorScheme.primary)
     ) {
         Column(
             modifier = Modifier

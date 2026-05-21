@@ -6,9 +6,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 private val AgoraColorScheme = lightColorScheme(
-    primary = Color(0xFF1A6B8A),
-    secondary = Color(0xFF54E6D4),
-    background = Color(0xFFF1F7F6),
+    primary = Color(0xFF1A73E8),
+    secondary = Color(0xFF00BFA5),
+    background = Color(0xFFF8F9FA),
     surface = Color(0xFFFFFFFF),
     onPrimary = Color.White,
     onSecondary = Color.White,

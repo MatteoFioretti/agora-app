@@ -22,10 +22,10 @@ import androidx.compose.ui.unit.dp
 import com.agora.app.data.FakeData
 import com.agora.app.data.Student
 
-private val AgoraBlue = Color(0xFF1A6B8A)
-private val AgoraTeal = Color(0xFF54E6D4)
-private val AgoraTealDark = Color(0xFF1A6B8A)
-private val AgoraBackground = Color(0xFFF1F7F6)
+private val AgoraBlue = Color(0xFF1A73E8)
+private val AgoraTeal = Color(0xFF00BFA5)
+private val AgoraTealDark = Color(0xFF00897B)
+private val AgoraBackground = Color(0xFFF8F9FA)
 
 @Composable
 fun ExploreScreen(onRequestConversation: (Int) -> Unit = {}) {
@@ -221,10 +221,7 @@ fun PerfectMatchCard(student: Student, onRequestConversation: (Int) -> Unit = {}
                 onClick = { onRequestConversation(student.id) },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(10.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = AgoraTeal,
-                    contentColor = AgoraBlue
-                )
+                colors = ButtonDefaults.buttonColors(containerColor = AgoraTealDark)
             ) {
                 Text("Request", style = MaterialTheme.typography.labelMedium)
             }
