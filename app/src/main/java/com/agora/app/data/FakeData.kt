@@ -122,7 +122,20 @@ object FakeData {
         val perfectMatchIds = getPerfectMatches().map { it.id }
         return allStudents.filter { it.id !in perfectMatchIds }
     }
-
+    fun getAllMeetings(): List<Meeting> {
+        val allMeetings = if (AppState.newMeetingBooked && AppState.newMeeting != null) {
+            meetings + listOf(AppState.newMeeting!!)
+        } else {
+            meetings
+        }
+        return allMeetings.sortedBy { meeting ->
+            when (meeting.status) {
+                MeetingStatus.CONFIRMED -> 0
+                MeetingStatus.PENDING -> 1
+                MeetingStatus.COMPLETED -> 2
+            }
+        }
+    }
     val meetings = listOf(
         Meeting(
             id = 1,

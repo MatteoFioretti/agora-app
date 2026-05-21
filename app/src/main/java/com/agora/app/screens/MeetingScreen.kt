@@ -31,10 +31,10 @@ fun MeetingsScreen(onConfirmSession: (Int) -> Unit = {}) {
     var selectedTab by remember { mutableStateOf(0) }
     val tabs = listOf("Upcoming", "Past")
 
-    val upcomingMeetings = FakeData.meetings.filter {
+    val upcomingMeetings = FakeData.getAllMeetings().filter {
         it.status == MeetingStatus.PENDING || it.status == MeetingStatus.CONFIRMED
     }
-    val pastMeetings = FakeData.meetings.filter {
+    val pastMeetings = FakeData.getAllMeetings().filter {
         it.status == MeetingStatus.COMPLETED
     }
 

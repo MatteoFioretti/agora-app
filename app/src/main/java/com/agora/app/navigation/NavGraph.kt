@@ -26,7 +26,13 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
                 }
             )
         }
-        composable(BottomNavItem.Explore.route) { ExploreScreen() }
+        composable(BottomNavItem.Explore.route) {
+            ExploreScreen(
+                onRequestConversation = { studentId ->
+                    navController.navigate("book_session/$studentId")
+                }
+            )
+        }
         composable(BottomNavItem.OfferHelp.route) { OfferHelpScreen() }
         composable(BottomNavItem.Meetings.route) {
             MeetingsScreen(
@@ -46,6 +52,24 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
                 ConfirmSessionScreen(
                     meeting = meeting,
                     onBack = { navController.popBackStack() }
+                )
+            }
+        }
+        composable(
+            route = "book_session/{studentId}",
+            arguments = listOf(navArgument("studentId") { type = NavType.IntType })
+        ) { backStackEntry ->
+            val studentId = backStackEntry.arguments?.getInt("studentId") ?: 1
+            val student = FakeData.allStudents.find { it.id == studentId }
+            if (student != null) {
+                BookingScreen(
+                    student = student,
+                    onBack = { navController.popBackStack() },
+                    onRequestSent = {
+                        navController.navigate(BottomNavItem.Meetings.route) {
+                            popUpTo(BottomNavItem.Explore.route) { inclusive = false }
+                        }
+                    }
                 )
             }
         }

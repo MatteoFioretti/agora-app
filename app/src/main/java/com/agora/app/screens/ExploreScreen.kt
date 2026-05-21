@@ -28,7 +28,7 @@ private val AgoraTealDark = Color(0xFF00897B)
 private val AgoraBackground = Color(0xFFF8F9FA)
 
 @Composable
-fun ExploreScreen() {
+fun ExploreScreen(onRequestConversation: (Int) -> Unit = {}) {
     var searchQuery by remember { mutableStateOf("") }
 
     val perfectMatches = FakeData.getPerfectMatches()
@@ -137,7 +137,7 @@ fun ExploreScreen() {
                         horizontalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
                         items(perfectMatches) { student ->
-                            PerfectMatchCard(student = student)
+                            PerfectMatchCard(student = student, onRequestConversation = onRequestConversation)
                         }
                     }
                 }
@@ -157,7 +157,8 @@ fun ExploreScreen() {
             items(regularStudents) { student ->
                 StudentCard(
                     student = student,
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp),
+                    onRequestConversation = onRequestConversation
                 )
             }
         }
@@ -165,7 +166,7 @@ fun ExploreScreen() {
 }
 
 @Composable
-fun PerfectMatchCard(student: Student) {
+fun PerfectMatchCard(student: Student, onRequestConversation: (Int) -> Unit = {}) {
     Card(
         modifier = Modifier.width(220.dp),
         shape = RoundedCornerShape(16.dp),
@@ -217,7 +218,7 @@ fun PerfectMatchCard(student: Student) {
             RatingRow(rating = student.rating, count = student.conversationCount)
             Spacer(modifier = Modifier.height(12.dp))
             Button(
-                onClick = { },
+                onClick = { onRequestConversation(student.id) },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(10.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = AgoraTealDark)
@@ -229,7 +230,7 @@ fun PerfectMatchCard(student: Student) {
 }
 
 @Composable
-fun StudentCard(student: Student, modifier: Modifier = Modifier) {
+fun StudentCard(student: Student, modifier: Modifier = Modifier, onRequestConversation: (Int) -> Unit = {}) {
     Card(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
@@ -267,7 +268,7 @@ fun StudentCard(student: Student, modifier: Modifier = Modifier) {
             )
             Spacer(modifier = Modifier.height(12.dp))
             Button(
-                onClick = { },
+                onClick = { onRequestConversation(student.id) },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(10.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = AgoraBlue)
