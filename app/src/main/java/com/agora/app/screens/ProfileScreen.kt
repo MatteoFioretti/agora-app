@@ -19,10 +19,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.agora.app.data.FakeData
 
-private val AgoraBlue = Color(0xFF1A73E8)
-private val AgoraTeal = Color(0xFF00BFA5)
-private val AgoraTealDark = Color(0xFF00897B)
-private val AgoraBackground = Color(0xFFF8F9FA)
+private val AgoraBlue = Color(0xFF1A6B8A)
+private val AgoraTeal = Color(0xFF54E6D4)
+private val AgoraTealDark = Color(0xFF1A6B8A)
+private val AgoraBackground = Color(0xFFF1F7F6)
 
 private data class ProfileSession(
     val studentName: String,
@@ -117,7 +117,7 @@ fun ProfileScreen() {
                     Text(
                         text = "credits available",
                         style = MaterialTheme.typography.bodySmall,
-                        color = AgoraTeal
+                        color = Color(0xFF1A6B8A)
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     HorizontalDivider(color = Color.LightGray.copy(alpha = 0.5f))

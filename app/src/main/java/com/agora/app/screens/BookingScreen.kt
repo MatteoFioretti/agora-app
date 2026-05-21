@@ -21,10 +21,10 @@ import com.agora.app.data.Meeting
 import com.agora.app.data.MeetingStatus
 import com.agora.app.data.Student
 
-private val AgoraBlue = Color(0xFF1A73E8)
-private val AgoraTeal = Color(0xFF00BFA5)
-private val AgoraTealDark = Color(0xFF00897B)
-private val AgoraBackground = Color(0xFFF8F9FA)
+private val AgoraBlue = Color(0xFF1A6B8A)
+private val AgoraTeal = Color(0xFF54E6D4)
+private val AgoraTealDark = Color(0xFF1A6B8A)
+private val AgoraBackground = Color(0xFFF1F7F6)
 
 private val dateOptions = listOf("Today", "Tomorrow", "This Friday", "Next Monday")
 private val timeOptions = listOf("10:00 AM", "12:00 PM", "2:00 PM", "4:00 PM", "6:00 PM")
