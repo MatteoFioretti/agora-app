@@ -27,7 +27,7 @@ private val AgoraBackground = Color(0xFFF8F9FA)
 private val AgoraAmber = Color(0xFFFFA000)
 
 @Composable
-fun MeetingsScreen() {
+fun MeetingsScreen(onConfirmSession: (Int) -> Unit = {}) {
     var selectedTab by remember { mutableStateOf(0) }
     val tabs = listOf("Upcoming", "Past")
 
@@ -124,7 +124,7 @@ fun MeetingsScreen() {
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 items(currentList) { meeting ->
-                    MeetingCard(meeting = meeting)
+                    MeetingCard(meeting = meeting, onConfirmSession = onConfirmSession)
                 }
             }
         }
@@ -132,7 +132,7 @@ fun MeetingsScreen() {
 }
 
 @Composable
-fun MeetingCard(meeting: Meeting) {
+fun MeetingCard(meeting: Meeting, onConfirmSession: (Int) -> Unit = {}) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
@@ -224,7 +224,7 @@ fun MeetingCard(meeting: Meeting) {
 
                 MeetingStatus.CONFIRMED -> {
                     Button(
-                        onClick = { },
+                        onClick = { onConfirmSession(meeting.id) },
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(10.dp),
                         colors = ButtonDefaults.buttonColors(containerColor = AgoraTealDark)
