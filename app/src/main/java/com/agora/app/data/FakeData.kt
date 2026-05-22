@@ -128,13 +128,15 @@ object FakeData {
         } else {
             meetings
         }
-        return allMeetings.sortedBy { meeting ->
-            when (meeting.status) {
-                MeetingStatus.CONFIRMED -> 0
-                MeetingStatus.PENDING -> 1
-                MeetingStatus.COMPLETED -> 2
+        return allMeetings
+            .filter { it.id !in AppState.cancelledMeetingIds }
+            .sortedBy { meeting ->
+                when (meeting.status) {
+                    MeetingStatus.CONFIRMED -> 0
+                    MeetingStatus.PENDING -> 1
+                    MeetingStatus.COMPLETED -> 2
+                }
             }
-        }
     }
     val meetings = listOf(
         Meeting(

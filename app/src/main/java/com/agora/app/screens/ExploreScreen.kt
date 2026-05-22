@@ -98,7 +98,8 @@ fun ExploreScreen(onRequestConversation: (Int) -> Unit = {}) {
             items(searchResults) { student ->
                 StudentCard(
                     student = student,
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp),
+                    onRequestConversation = onRequestConversation
                 )
             }
         } else {

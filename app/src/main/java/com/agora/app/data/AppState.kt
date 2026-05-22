@@ -7,4 +7,5 @@ import androidx.compose.runtime.setValue
 object AppState {
     var newMeetingBooked by mutableStateOf(false)
     var newMeeting: Meeting? = null
+    var cancelledMeetingIds by mutableStateOf(setOf<Int>())
 }

@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.agora.app.data.FakeData
 import com.agora.app.data.Meeting
 import com.agora.app.data.MeetingStatus
-
+import com.agora.app.data.AppState
 import com.agora.app.ui.theme.*
 @Composable
 fun MeetingsScreen(onConfirmSession: (Int) -> Unit = {}) {
@@ -128,6 +128,7 @@ fun MeetingsScreen(onConfirmSession: (Int) -> Unit = {}) {
 
 @Composable
 fun MeetingCard(meeting: Meeting, onConfirmSession: (Int) -> Unit = {}) {
+    var showCancelDialog by remember { mutableStateOf(false) }
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
@@ -204,8 +205,33 @@ fun MeetingCard(meeting: Meeting, onConfirmSession: (Int) -> Unit = {}) {
 
             when (meeting.status) {
                 MeetingStatus.PENDING -> {
+                    if (showCancelDialog) {
+                        AlertDialog(
+                            onDismissRequest = { showCancelDialog = false },
+                            title = { Text("Cancel request?") },
+                            text = {
+                                Text("Are you sure you want to cancel your request with ${meeting.otherStudent.name.split(" ").first()}? This cannot be undone.")
+                            },
+                            confirmButton = {
+                                TextButton(
+                                    onClick = {
+                                        AppState.cancelledMeetingIds =
+                                            AppState.cancelledMeetingIds + meeting.id
+                                        showCancelDialog = false
+                                    }
+                                ) {
+                                    Text("Yes, cancel", color = MaterialTheme.colorScheme.error)
+                                }
+                            },
+                            dismissButton = {
+                                TextButton(onClick = { showCancelDialog = false }) {
+                                    Text("No, keep it")
+                                }
+                            }
+                        )
+                    }
                     OutlinedButton(
-                        onClick = { },
+                        onClick = { showCancelDialog = true },
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(10.dp)
                     ) {
