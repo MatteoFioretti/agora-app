@@ -20,12 +20,7 @@ import com.agora.app.data.FakeData
 import com.agora.app.data.Meeting
 import com.agora.app.data.MeetingStatus
 
-private val AgoraBlue = Color(0xFF1A73E8)
-private val AgoraTeal = Color(0xFF00BFA5)
-private val AgoraTealDark = Color(0xFF00897B)
-private val AgoraBackground = Color(0xFFF8F9FA)
-private val AgoraAmber = Color(0xFFFFA000)
-
+import com.agora.app.ui.theme.*
 @Composable
 fun MeetingsScreen(onConfirmSession: (Int) -> Unit = {}) {
     var selectedTab by remember { mutableStateOf(0) }
@@ -46,7 +41,7 @@ fun MeetingsScreen(onConfirmSession: (Int) -> Unit = {}) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(AgoraBlue)
+                .background( AgoraPrimary)
                 .padding(start = 20.dp, end = 20.dp, top = 24.dp)
         ) {
             Text(
@@ -64,7 +59,7 @@ fun MeetingsScreen(onConfirmSession: (Int) -> Unit = {}) {
             Spacer(modifier = Modifier.height(16.dp))
             TabRow(
                 selectedTabIndex = selectedTab,
-                containerColor = AgoraBlue,
+                containerColor =  AgoraPrimary,
                 contentColor = Color.White
             ) {
                 tabs.forEachIndexed { index, title ->
@@ -141,7 +136,7 @@ fun MeetingCard(meeting: Meeting, onConfirmSession: (Int) -> Unit = {}) {
         Column(modifier = Modifier.padding(16.dp)) {
 
             Row(verticalAlignment = Alignment.CenterVertically) {
-                AvatarCircle(name = meeting.otherStudent.name, color = AgoraBlue)
+                AvatarCircle(name = meeting.otherStudent.name, color =  AgoraPrimary)
                 Spacer(modifier = Modifier.width(12.dp))
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
@@ -227,7 +222,7 @@ fun MeetingCard(meeting: Meeting, onConfirmSession: (Int) -> Unit = {}) {
                         onClick = { onConfirmSession(meeting.id) },
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(10.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = AgoraTealDark)
+                        colors = ButtonDefaults.buttonColors(containerColor = AgoraAccentDark)
                     ) {
                         Text(
                             "Confirm completed session",
@@ -266,8 +261,8 @@ fun StatusBadge(status: MeetingStatus) {
     }
     val color = when (status) {
         MeetingStatus.PENDING -> AgoraAmber
-        MeetingStatus.CONFIRMED -> AgoraBlue
-        MeetingStatus.COMPLETED -> AgoraTealDark
+        MeetingStatus.CONFIRMED ->  AgoraPrimary
+        MeetingStatus.COMPLETED -> AgoraAccentDark
     }
     Surface(
         shape = RoundedCornerShape(20.dp),

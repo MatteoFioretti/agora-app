@@ -19,10 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.agora.app.data.FakeData
 
-private val AgoraBlue = Color(0xFF1A73E8)
-private val AgoraTeal = Color(0xFF00BFA5)
-private val AgoraTealDark = Color(0xFF00897B)
-private val AgoraBackground = Color(0xFFF8F9FA)
+import com.agora.app.ui.theme.*
 
 private data class ProfileSession(
     val studentName: String,
@@ -56,7 +53,7 @@ fun ProfileScreen() {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(AgoraBlue)
+                    .background( AgoraPrimary)
                     .padding(start = 20.dp, end = 20.dp, top = 32.dp, bottom = 32.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -112,12 +109,12 @@ fun ProfileScreen() {
                         text = "3",
                         fontSize = 56.sp,
                         fontWeight = FontWeight.Bold,
-                        color = AgoraTealDark
+                        color = AgoraAccentDark
                     )
                     Text(
                         text = "credits available",
                         style = MaterialTheme.typography.bodySmall,
-                        color = AgoraTeal
+                        color = AgoraAccent
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     HorizontalDivider(color = Color.LightGray.copy(alpha = 0.5f))
@@ -162,13 +159,13 @@ fun ProfileScreen() {
                         user.offers.forEach { skill ->
                             Surface(
                                 shape = RoundedCornerShape(20.dp),
-                                color = AgoraBlue.copy(alpha = 0.1f),
+                                color =  AgoraPrimary.copy(alpha = 0.1f),
                                 modifier = Modifier.padding(bottom = 4.dp)
                             ) {
                                 Text(
                                     text = skill,
                                     style = MaterialTheme.typography.labelSmall,
-                                    color = AgoraBlue,
+                                    color =  AgoraPrimary,
                                     modifier = Modifier.padding(
                                         horizontal = 10.dp, vertical = 4.dp
                                     )
@@ -194,13 +191,13 @@ fun ProfileScreen() {
                         user.needs.forEach { need ->
                             Surface(
                                 shape = RoundedCornerShape(20.dp),
-                                color = AgoraTeal.copy(alpha = 0.1f),
+                                color = AgoraAccent.copy(alpha = 0.1f),
                                 modifier = Modifier.padding(bottom = 4.dp)
                             ) {
                                 Text(
                                     text = need,
                                     style = MaterialTheme.typography.labelSmall,
-                                    color = AgoraTealDark,
+                                    color = AgoraAccentDark,
                                     modifier = Modifier.padding(
                                         horizontal = 10.dp, vertical = 4.dp
                                     )
@@ -239,7 +236,7 @@ fun ProfileScreen() {
                 ) {
                     AvatarCircle(
                         name = session.studentName,
-                        color = if (session.wasHelper) AgoraBlue else AgoraTeal
+                        color = if (session.wasHelper)  AgoraPrimary else AgoraAccent
                     )
                     Spacer(modifier = Modifier.width(12.dp))
                     Column(modifier = Modifier.weight(1f)) {
@@ -263,14 +260,14 @@ fun ProfileScreen() {
                         Surface(
                             shape = RoundedCornerShape(8.dp),
                             color = if (session.wasHelper)
-                                AgoraBlue.copy(alpha = 0.1f)
+                                 AgoraPrimary.copy(alpha = 0.1f)
                             else
-                                AgoraTeal.copy(alpha = 0.1f)
+                                AgoraAccent.copy(alpha = 0.1f)
                         ) {
                             Text(
                                 text = if (session.wasHelper) "helped" else "received",
                                 style = MaterialTheme.typography.labelSmall,
-                                color = if (session.wasHelper) AgoraBlue else AgoraTealDark,
+                                color = if (session.wasHelper)  AgoraPrimary else AgoraAccentDark,
                                 modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
                             )
                         }
@@ -303,7 +300,7 @@ fun StatItem(value: String, label: String) {
             text = value,
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,
-            color = AgoraBlue
+            color =  AgoraPrimary
         )
         Text(
             text = label,

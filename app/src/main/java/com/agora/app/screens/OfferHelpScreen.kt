@@ -17,11 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.agora.app.data.FakeData
 import com.agora.app.data.Student
 
-private val AgoraBlue = Color(0xFF1A73E8)
-private val AgoraTeal = Color(0xFF00BFA5)
-private val AgoraTealDark = Color(0xFF00897B)
-private val AgoraBackground = Color(0xFFF8F9FA)
-
+import com.agora.app.ui.theme.*
 private val predefinedSkills = listOf(
     "Programming", "Mathematics", "Statistics", "Physics",
     "Economics", "Chemistry", "Biology", "Law",
@@ -62,7 +58,7 @@ fun OfferHelpScreen() {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(AgoraBlue)
+                    .background( AgoraPrimary)
                     .padding(start = 20.dp, end = 20.dp, top = 24.dp, bottom = 28.dp)
             ) {
                 Text(
@@ -87,18 +83,18 @@ fun OfferHelpScreen() {
                         .fillMaxWidth()
                         .padding(16.dp),
                     shape = RoundedCornerShape(12.dp),
-                    color = AgoraTeal.copy(alpha = 0.15f)
+                    color = AgoraAccent.copy(alpha = 0.15f)
                 ) {
                     Row(
                         modifier = Modifier.padding(16.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text("✦", color = AgoraTealDark)
+                        Text("✦", color = AgoraAccentDark)
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
                             text = "Your offer is live! Students can now find you.",
                             style = MaterialTheme.typography.bodyMedium,
-                            color = AgoraTealDark,
+                            color = AgoraAccentDark,
                             fontWeight = FontWeight.Medium
                         )
                     }
@@ -126,8 +122,8 @@ fun OfferHelpScreen() {
                                     )
                                 },
                                 colors = InputChipDefaults.inputChipColors(
-                                    selectedContainerColor = AgoraBlue.copy(alpha = 0.12f),
-                                    selectedLabelColor = AgoraBlue
+                                    selectedContainerColor =  AgoraPrimary.copy(alpha = 0.12f),
+                                    selectedLabelColor =  AgoraPrimary
                                 )
                             )
                         }
@@ -153,7 +149,7 @@ fun OfferHelpScreen() {
                             }
                         }
                     ) {
-                        Icon(Icons.Outlined.Add, contentDescription = "Add", tint = AgoraBlue)
+                        Icon(Icons.Outlined.Add, contentDescription = "Add", tint =  AgoraPrimary)
                     }
                 }
 
@@ -181,8 +177,8 @@ fun OfferHelpScreen() {
                             },
                             label = { Text(skill, style = MaterialTheme.typography.labelSmall) },
                             colors = FilterChipDefaults.filterChipColors(
-                                selectedContainerColor = AgoraBlue.copy(alpha = 0.12f),
-                                selectedLabelColor = AgoraBlue
+                                selectedContainerColor =  AgoraPrimary.copy(alpha = 0.12f),
+                                selectedLabelColor =  AgoraPrimary
                             )
                         )
                     }
@@ -230,8 +226,8 @@ fun OfferHelpScreen() {
                                     )
                                 },
                                 colors = InputChipDefaults.inputChipColors(
-                                    selectedContainerColor = AgoraTeal.copy(alpha = 0.12f),
-                                    selectedLabelColor = AgoraTealDark
+                                    selectedContainerColor = AgoraAccent.copy(alpha = 0.12f),
+                                    selectedLabelColor = AgoraAccentDark
                                 )
                             )
                         }
@@ -257,7 +253,7 @@ fun OfferHelpScreen() {
                             }
                         }
                     ) {
-                        Icon(Icons.Outlined.Add, contentDescription = "Add", tint = AgoraTealDark)
+                        Icon(Icons.Outlined.Add, contentDescription = "Add", tint = AgoraAccentDark)
                     }
                 }
 
@@ -285,8 +281,8 @@ fun OfferHelpScreen() {
                             },
                             label = { Text(skill, style = MaterialTheme.typography.labelSmall) },
                             colors = FilterChipDefaults.filterChipColors(
-                                selectedContainerColor = AgoraTeal.copy(alpha = 0.12f),
-                                selectedLabelColor = AgoraTealDark
+                                selectedContainerColor = AgoraAccent.copy(alpha = 0.12f),
+                                selectedLabelColor = AgoraAccentDark
                             )
                         )
                     }
@@ -314,7 +310,7 @@ fun OfferHelpScreen() {
                     .padding(horizontal = 16.dp, vertical = 8.dp)
                     .height(52.dp),
                 shape = RoundedCornerShape(12.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = AgoraBlue),
+                colors = ButtonDefaults.buttonColors(containerColor =  AgoraPrimary),
                 enabled = selectedOffers.isNotEmpty() && tagline.isNotEmpty()
             ) {
                 Text("Post offer", style = MaterialTheme.typography.labelLarge)

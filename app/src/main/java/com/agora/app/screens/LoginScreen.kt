@@ -20,7 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 
-private val AgoraBlue = Color(0xFF1A73E8)
+private val  AgoraPrimary = Color(0xFF1A73E8)
 private val AgoraLightBlue = Color(0xFFE8F1FE)
 
 @Composable
@@ -37,20 +37,20 @@ fun LoginScreen(onLoginSuccess: () -> Unit = {}) {
             modifier = Modifier
                 .size(220.dp)
                 .offset(x = (-60).dp, y = (-60).dp)
-                .background(AgoraBlue.copy(alpha = 0.35f), CircleShape)
+                .background( AgoraPrimary.copy(alpha = 0.35f), CircleShape)
         )
         Box(
             modifier = Modifier
                 .size(140.dp)
                 .align(Alignment.TopEnd)
                 .offset(x = 30.dp, y = 80.dp)
-                .background(AgoraBlue.copy(alpha = 0.2f), CircleShape)
+                .background( AgoraPrimary.copy(alpha = 0.2f), CircleShape)
         )
         Box(
             modifier = Modifier
                 .size(80.dp)
                 .offset(x = 30.dp, y = 180.dp)
-                .background(AgoraBlue.copy(alpha = 0.15f), CircleShape)
+                .background( AgoraPrimary.copy(alpha = 0.15f), CircleShape)
         )
 
         Column(
@@ -83,7 +83,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit = {}) {
                     Text(
                         text = "Sign up",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = AgoraBlue,
+                        color =  AgoraPrimary,
                         fontWeight = FontWeight.Medium
                     )
                 }
@@ -94,7 +94,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit = {}) {
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
-                label = { Text("University email") },
+                label = { Text("Username") },
                 leadingIcon = {
                     Icon(Icons.Filled.Email, contentDescription = null)
                 },
@@ -124,7 +124,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit = {}) {
             ) {
                 Text(
                     text = "Forgot?",
-                    color = AgoraBlue,
+                    color =  AgoraPrimary,
                     style = MaterialTheme.typography.bodySmall
                 )
             }
@@ -135,7 +135,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit = {}) {
                 onClick = { onLoginSuccess() },
                 modifier = Modifier.align(Alignment.End),
                 shape = RoundedCornerShape(50.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = AgoraBlue)
+                colors = ButtonDefaults.buttonColors(containerColor =  AgoraPrimary)
             ) {
                 Text(
                     text = "Log in",

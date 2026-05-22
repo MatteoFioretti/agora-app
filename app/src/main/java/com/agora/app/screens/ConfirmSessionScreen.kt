@@ -25,10 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.agora.app.data.Meeting
 
-private val AgoraBlue = Color(0xFF1A73E8)
-private val AgoraTeal = Color(0xFF00BFA5)
-private val AgoraTealDark = Color(0xFF00897B)
-private val AgoraBackground = Color(0xFFF8F9FA)
+import com.agora.app.ui.theme.*
 
 @Composable
 fun ConfirmSessionScreen(
@@ -64,7 +61,7 @@ fun ConfirmSessionScreen(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(AgoraBlue)
+                .background( AgoraPrimary)
                 .padding(bottom = 24.dp)
         ) {
             Row(
@@ -131,13 +128,13 @@ fun ConfirmSessionScreen(
                     Box(
                         modifier = Modifier
                             .size(28.dp)
-                            .background(AgoraTeal.copy(alpha = 0.15f), CircleShape),
+                            .background(AgoraAccent.copy(alpha = 0.15f), CircleShape),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
                             Icons.Outlined.Check,
                             contentDescription = null,
-                            tint = AgoraTealDark,
+                            tint = AgoraAccentDark,
                             modifier = Modifier.size(18.dp)
                         )
                     }
@@ -145,7 +142,7 @@ fun ConfirmSessionScreen(
                     Text(
                         "Session confirmed",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = AgoraTealDark,
+                        color = AgoraAccentDark,
                         fontWeight = FontWeight.Medium
                     )
                 }
@@ -154,7 +151,7 @@ fun ConfirmSessionScreen(
                     onClick = { step1Confirmed = true },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(10.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = AgoraBlue)
+                    colors = ButtonDefaults.buttonColors(containerColor =  AgoraPrimary)
                 ) {
                     Text("Yes, it happened", style = MaterialTheme.typography.labelLarge)
                 }
@@ -220,7 +217,7 @@ fun ConfirmSessionScreen(
                     Spacer(modifier = Modifier.width(12.dp))
                     Surface(
                         shape = RoundedCornerShape(10.dp),
-                        color = AgoraBlue.copy(alpha = 0.1f)
+                        color =  AgoraPrimary.copy(alpha = 0.1f)
                     ) {
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
@@ -229,12 +226,12 @@ fun ConfirmSessionScreen(
                             Text(
                                 text = "Current balance",
                                 style = MaterialTheme.typography.labelSmall,
-                                color = AgoraBlue.copy(alpha = 0.7f)
+                                color =  AgoraPrimary.copy(alpha = 0.7f)
                             )
                             Text(
                                 text = "3 credits",
                                 style = MaterialTheme.typography.labelMedium,
-                                color = AgoraBlue,
+                                color =  AgoraPrimary,
                                 fontWeight = FontWeight.Bold
                             )
                         }
@@ -245,7 +242,7 @@ fun ConfirmSessionScreen(
                     onClick = { creditTransferred = true },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(10.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = AgoraTealDark)
+                    colors = ButtonDefaults.buttonColors(containerColor = AgoraAccentDark)
                 ) {
                     Text("Send 1 credit", style = MaterialTheme.typography.labelLarge)
                 }
@@ -261,17 +258,17 @@ fun ConfirmSessionScreen(
                                 scaleX = creditScale
                                 scaleY = creditScale
                             }
-                            .background(AgoraTeal.copy(alpha = 0.15f), CircleShape),
+                            .background(AgoraAccent.copy(alpha = 0.15f), CircleShape),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text(text = "✦", fontSize = 32.sp, color = AgoraTealDark)
+                        Text(text = "✦", fontSize = 32.sp, color = AgoraAccentDark)
                     }
                     Spacer(modifier = Modifier.height(16.dp))
                     Text(
                         text = "Credit sent!",
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
-                        color = AgoraTealDark
+                        color = AgoraAccentDark
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
@@ -289,17 +286,17 @@ fun ConfirmSessionScreen(
                         WalletBox(
                             label = "Your wallet",
                             credits = animatedCredits,
-                            color = AgoraBlue
+                            color =  AgoraPrimary
                         )
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             Surface(
                                 shape = RoundedCornerShape(12.dp),
-                                color = AgoraTealDark.copy(alpha = 0.1f)
+                                color = AgoraAccentDark.copy(alpha = 0.1f)
                             ) {
                                 Text(
                                     text = "+1",
                                     style = MaterialTheme.typography.titleMedium,
-                                    color = AgoraTealDark,
+                                    color = AgoraAccentDark,
                                     fontWeight = FontWeight.Bold,
                                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp)
                                 )
@@ -348,8 +345,8 @@ fun StepCard(
                     modifier = Modifier
                         .size(26.dp)
                         .background(
-                            if (isCompleted) AgoraTeal.copy(alpha = 0.15f)
-                            else AgoraBlue.copy(alpha = 0.1f),
+                            if (isCompleted) AgoraAccent.copy(alpha = 0.15f)
+                            else  AgoraPrimary.copy(alpha = 0.1f),
                             CircleShape
                         ),
                     contentAlignment = Alignment.Center
@@ -358,14 +355,14 @@ fun StepCard(
                         Icon(
                             Icons.Outlined.Check,
                             contentDescription = null,
-                            tint = AgoraTealDark,
+                            tint = AgoraAccentDark,
                             modifier = Modifier.size(16.dp)
                         )
                     } else {
                         Text(
                             text = "$stepNumber",
                             style = MaterialTheme.typography.labelSmall,
-                            color = AgoraBlue,
+                            color =  AgoraPrimary,
                             fontWeight = FontWeight.Bold
                         )
                     }

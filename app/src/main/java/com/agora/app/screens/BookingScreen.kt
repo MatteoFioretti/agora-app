@@ -21,10 +21,7 @@ import com.agora.app.data.Meeting
 import com.agora.app.data.MeetingStatus
 import com.agora.app.data.Student
 
-private val AgoraBlue = Color(0xFF1A73E8)
-private val AgoraTeal = Color(0xFF00BFA5)
-private val AgoraTealDark = Color(0xFF00897B)
-private val AgoraBackground = Color(0xFFF8F9FA)
+import com.agora.app.ui.theme.*
 
 private val dateOptions = listOf("Today", "Tomorrow", "This Friday", "Next Monday")
 private val timeOptions = listOf("10:00 AM", "12:00 PM", "2:00 PM", "4:00 PM", "6:00 PM")
@@ -56,7 +53,7 @@ fun BookingScreen(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(AgoraBlue)
+                .background( AgoraPrimary)
                 .padding(bottom = 24.dp)
         ) {
             Row(
@@ -123,13 +120,13 @@ fun BookingScreen(
                 Box(
                     modifier = Modifier
                         .size(80.dp)
-                        .background(AgoraTeal.copy(alpha = 0.15f), CircleShape),
+                        .background(AgoraAccent.copy(alpha = 0.15f), CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
                         text = "✦",
                         style = MaterialTheme.typography.headlineMedium,
-                        color = AgoraTealDark
+                        color = AgoraAccentDark
                     )
                 }
                 Spacer(modifier = Modifier.height(16.dp))
@@ -137,7 +134,7 @@ fun BookingScreen(
                     text = "Request sent!",
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold,
-                    color = AgoraTealDark
+                    color = AgoraAccentDark
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
@@ -153,7 +150,7 @@ fun BookingScreen(
                         .fillMaxWidth()
                         .height(52.dp),
                     shape = RoundedCornerShape(12.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = AgoraBlue)
+                    colors = ButtonDefaults.buttonColors(containerColor =  AgoraPrimary)
                 ) {
                     Text("View in Meetings", style = MaterialTheme.typography.labelLarge)
                 }
@@ -170,8 +167,8 @@ fun BookingScreen(
                             onClick = { selectedDate = option },
                             label = { Text(option, style = MaterialTheme.typography.labelMedium) },
                             colors = FilterChipDefaults.filterChipColors(
-                                selectedContainerColor = AgoraBlue.copy(alpha = 0.12f),
-                                selectedLabelColor = AgoraBlue
+                                selectedContainerColor =  AgoraPrimary.copy(alpha = 0.12f),
+                                selectedLabelColor =  AgoraPrimary
                             )
                         )
                     }
@@ -189,8 +186,8 @@ fun BookingScreen(
                             onClick = { selectedTime = option },
                             label = { Text(option, style = MaterialTheme.typography.labelMedium) },
                             colors = FilterChipDefaults.filterChipColors(
-                                selectedContainerColor = AgoraBlue.copy(alpha = 0.12f),
-                                selectedLabelColor = AgoraBlue
+                                selectedContainerColor =  AgoraPrimary.copy(alpha = 0.12f),
+                                selectedLabelColor =  AgoraPrimary
                             )
                         )
                     }
@@ -211,8 +208,8 @@ fun BookingScreen(
                             },
                             label = { Text(option, style = MaterialTheme.typography.labelMedium) },
                             colors = FilterChipDefaults.filterChipColors(
-                                selectedContainerColor = AgoraBlue.copy(alpha = 0.12f),
-                                selectedLabelColor = AgoraBlue
+                                selectedContainerColor =  AgoraPrimary.copy(alpha = 0.12f),
+                                selectedLabelColor =  AgoraPrimary
                             )
                         )
                     }
@@ -251,7 +248,7 @@ fun BookingScreen(
                     .padding(16.dp)
                     .height(52.dp),
                 shape = RoundedCornerShape(12.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = AgoraBlue),
+                colors = ButtonDefaults.buttonColors(containerColor =  AgoraPrimary),
                 enabled = canSend
             ) {
                 Text("Send request", style = MaterialTheme.typography.labelLarge)
