@@ -132,7 +132,7 @@ fun MeetingCard(meeting: Meeting, onConfirmSession: (Int) -> Unit = {}) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
+        colors = CardDefaults.cardColors(containerColor = Color.White, contentColor = AgoraText)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
 

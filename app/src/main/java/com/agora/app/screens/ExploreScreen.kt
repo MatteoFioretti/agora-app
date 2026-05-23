@@ -132,7 +132,7 @@ fun ExploreScreen(onRequestConversation: (Int) -> Unit = {}) {
                         contentPadding = PaddingValues(horizontal = 16.dp),
                         horizontalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
-                        items(perfectMatches) { student ->
+                        items(perfectMatches, key = {it.id}) { student ->
                             PerfectMatchCard(student = student, onRequestConversation = onRequestConversation)
                         }
                     }
@@ -146,11 +146,12 @@ fun ExploreScreen(onRequestConversation: (Int) -> Unit = {}) {
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(
                         start = 20.dp, end = 20.dp, top = 28.dp, bottom = 8.dp
-                    )
+                    ),
+                    color = AgoraText
                 )
             }
 
-            items(regularStudents) { student ->
+            items(regularStudents, key = {it.id}) { student ->
                 StudentCard(
                     student = student,
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp),
@@ -166,7 +167,7 @@ fun PerfectMatchCard(student: Student, onRequestConversation: (Int) -> Unit = {}
     Card(
         modifier = Modifier.width(220.dp),
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White),
+        colors = CardDefaults.cardColors(containerColor = Color.White, contentColor = AgoraText),
         border = BorderStroke(1.5.dp, AgoraAccent)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
@@ -189,7 +190,8 @@ fun PerfectMatchCard(student: Student, onRequestConversation: (Int) -> Unit = {}
                     Text(
                         student.name,
                         style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.Medium
+                        fontWeight = FontWeight.Medium,
+                        color = AgoraText
                     )
                     Text(
                         "${student.year} · ${student.faculty}",
@@ -222,7 +224,7 @@ fun StudentCard(student: Student, modifier: Modifier = Modifier, onRequestConver
     Card(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
+        colors = CardDefaults.cardColors(containerColor = Color.White, contentColor = AgoraText)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -232,7 +234,9 @@ fun StudentCard(student: Student, modifier: Modifier = Modifier, onRequestConver
                     Text(
                         student.name,
                         style = MaterialTheme.typography.bodyMedium,
-                        fontWeight = FontWeight.Medium
+                        fontWeight = FontWeight.Medium,
+                        color = AgoraText
+
                     )
                     Text(
                         "${student.year} · ${student.faculty}",
@@ -329,7 +333,8 @@ fun RatingRow(rating: Double, count: Int) {
         Text(
             text = rating.toString(),
             style = MaterialTheme.typography.labelSmall,
-            fontWeight = FontWeight.Medium
+            fontWeight = FontWeight.Medium,
+            color = AgoraText
         )
         Text(
             text = " (${count})",

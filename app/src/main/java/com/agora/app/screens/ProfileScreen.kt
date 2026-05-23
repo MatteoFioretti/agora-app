@@ -91,7 +91,7 @@ fun ProfileScreen() {
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 12.dp),
                 shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = Color.White)
+                colors = CardDefaults.cardColors(containerColor = Color.White, contentColor = AgoraText)
             ) {
                 Column(
                     modifier = Modifier
@@ -142,7 +142,7 @@ fun ProfileScreen() {
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 6.dp),
                 shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = Color.White)
+                colors = CardDefaults.cardColors(containerColor = Color.White, contentColor = AgoraText)
             ) {
                 Row(
                     modifier = Modifier
@@ -226,7 +226,7 @@ fun ProfileScreen() {
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 5.dp),
                 shape = RoundedCornerShape(14.dp),
-                colors = CardDefaults.cardColors(containerColor = Color.White)
+                colors = CardDefaults.cardColors(containerColor = Color.White, contentColor = AgoraText)
             ) {
                 Row(
                     modifier = Modifier

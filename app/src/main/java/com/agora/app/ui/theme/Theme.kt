@@ -18,6 +18,7 @@ private val AgoraColorScheme = lightColorScheme(
 
 @Composable
 fun AgoraTheme(
+    darkTheme: Boolean = false,
     content: @Composable () -> Unit
 ) {
     MaterialTheme(
