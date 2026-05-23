@@ -123,7 +123,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit = {}) {
                 modifier = Modifier.align(Alignment.End)
             ) {
                 Text(
-                    text = "Forgot?",
+                    text = "Forgot your credentials?",
                     color =  AgoraPrimary,
                     style = MaterialTheme.typography.bodySmall
                 )
