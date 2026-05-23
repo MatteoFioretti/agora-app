@@ -28,7 +28,6 @@ private val predefinedSkills = listOf(
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun OfferHelpScreen() {
-    var tagline by remember { mutableStateOf("") }
     var selectedOffers by remember { mutableStateOf(listOf<String>()) }
     var selectedNeeds by remember { mutableStateOf(listOf<String>()) }
     var customOfferInput by remember { mutableStateOf("") }
@@ -42,7 +41,7 @@ fun OfferHelpScreen() {
         faculty = FakeData.currentUser.faculty,
         offers = if (selectedOffers.isEmpty()) listOf("Your skills") else selectedOffers,
         needs = selectedNeeds,
-        tagline = if (tagline.isEmpty()) "How you explain things..." else tagline,
+        tagline = "",
         rating = 0.0,
         conversationCount = 0
     )
@@ -186,25 +185,6 @@ fun OfferHelpScreen() {
             }
         }
 
-        item {
-            SectionCard(title = "How do you explain things?") {
-                OutlinedTextField(
-                    value = tagline,
-                    onValueChange = { if (it.length <= 60) tagline = it },
-                    placeholder = { Text("e.g. \"Real examples, no jargon\"") },
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(12.dp),
-                    singleLine = true,
-                    supportingText = {
-                        Text(
-                            text = "${tagline.length}/60",
-                            style = MaterialTheme.typography.labelSmall,
-                            color = Color.Gray
-                        )
-                    }
-                )
-            }
-        }
 
         item {
             SectionCard(title = "What do you need help with?") {
@@ -311,7 +291,7 @@ fun OfferHelpScreen() {
                     .height(52.dp),
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(containerColor =  AgoraPrimary),
-                enabled = selectedOffers.isNotEmpty() && tagline.isNotEmpty()
+                enabled = selectedOffers.isNotEmpty()
             ) {
                 Text("Post offer", style = MaterialTheme.typography.labelLarge)
             }

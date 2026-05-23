@@ -111,7 +111,7 @@ fun ExploreScreen(onRequestConversation: (Int) -> Unit = {}) {
                     ) {
                         Text(
                             text = "✦  Perfect matches for you",
-                            style = MaterialTheme.typography.titleSmall,
+                            style = MaterialTheme.typography.titleLarge,
                             fontWeight = FontWeight.Bold,
                             color = AgoraAccentDark
                         )
@@ -141,7 +141,7 @@ fun ExploreScreen(onRequestConversation: (Int) -> Unit = {}) {
 
             item {
                 Text(
-                    text = "Find help",
+                    text = "Other matches",
                     style = MaterialTheme.typography.titleSmall,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(
@@ -203,14 +203,6 @@ fun PerfectMatchCard(student: Student, onRequestConversation: (Int) -> Unit = {}
             Spacer(modifier = Modifier.height(4.dp))
             SkillChips(skills = student.offers, color = AgoraAccent)
             Spacer(modifier = Modifier.height(10.dp))
-            Text(
-                text = "\"${student.tagline}\"",
-                style = MaterialTheme.typography.bodySmall,
-                color = Color.DarkGray,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis
-            )
-            Spacer(modifier = Modifier.height(10.dp))
             RatingRow(rating = student.rating, count = student.conversationCount)
             Spacer(modifier = Modifier.height(12.dp))
             Button(
@@ -251,17 +243,22 @@ fun StudentCard(student: Student, modifier: Modifier = Modifier, onRequestConver
                 RatingRow(rating = student.rating, count = student.conversationCount)
             }
             Spacer(modifier = Modifier.height(12.dp))
-            Text("Offers", style = MaterialTheme.typography.labelSmall, color = Color.Gray)
-            Spacer(modifier = Modifier.height(4.dp))
-            SkillChips(skills = student.offers, color =  AgoraPrimary)
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(
-                text = "\"${student.tagline}\"",
-                style = MaterialTheme.typography.bodySmall,
-                color = Color.DarkGray,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis
-            )
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Text("Offers", style = MaterialTheme.typography.labelSmall, color = Color.Gray)
+                    Spacer(modifier = Modifier.height(4.dp))
+                    SkillChips(skills = student.offers, color = AgoraPrimary)
+                }
+                if (student.needs.isNotEmpty()) {
+                    Spacer(modifier = Modifier.width(12.dp))
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text("Needs", style = MaterialTheme.typography.labelSmall, color = Color.Gray)
+                        Spacer(modifier = Modifier.height(4.dp))
+                        SkillChips(skills = student.needs, color = AgoraAccent)
+                    }
+                }
+            }
+
             Spacer(modifier = Modifier.height(12.dp))
             Button(
                 onClick = { onRequestConversation(student.id) },
