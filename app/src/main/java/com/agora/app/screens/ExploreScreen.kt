@@ -260,13 +260,17 @@ fun StudentCard(student: Student, modifier: Modifier = Modifier, onRequestConver
             }
 
             Spacer(modifier = Modifier.height(12.dp))
-            Button(
+            OutlinedButton(
                 onClick = { onRequestConversation(student.id) },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(10.dp),
-                colors = ButtonDefaults.buttonColors(containerColor =  AgoraPrimary)
+                border = BorderStroke(1.dp, AgoraPrimary)
             ) {
-                Text("Request conversation", style = MaterialTheme.typography.labelMedium)
+                Text(
+                    "Request conversation",
+                    style = MaterialTheme.typography.labelMedium,
+                    color = AgoraPrimary
+                )
             }
         }
     }
