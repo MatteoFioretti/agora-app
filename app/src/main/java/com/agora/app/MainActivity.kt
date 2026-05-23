@@ -40,7 +40,7 @@ fun AgoraApp() {
 
     Scaffold(
         bottomBar = {
-            if (currentRoute != "login") {
+            if (currentRoute != "login" && currentRoute != "welcome") {
                 NavigationBar {
                     bottomNavItems.forEach { item ->
                         NavigationBarItem(
@@ -49,11 +49,10 @@ fun AgoraApp() {
                             selected = currentRoute == item.route,
                             onClick = {
                                 navController.navigate(item.route) {
-                                    popUpTo(navController.graph.startDestinationId) {
-                                        saveState = true
+                                    popUpTo(BottomNavItem.Explore.route) {
+                                        inclusive = false
                                     }
                                     launchSingleTop = true
-                                    restoreState = true
                                 }
                             }
                         )

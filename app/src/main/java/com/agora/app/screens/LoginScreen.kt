@@ -53,6 +53,7 @@ fun LoginScreen(onLoginSuccess: () -> Unit = {}) {
                 .background( AgoraPrimary.copy(alpha = 0.15f), CircleShape)
         )
 
+        
         Column(
             modifier = Modifier
                 .fillMaxWidth()

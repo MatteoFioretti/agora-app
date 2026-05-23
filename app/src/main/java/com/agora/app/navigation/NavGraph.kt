@@ -14,14 +14,19 @@ import com.agora.app.screens.*
 fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
     NavHost(
         navController = navController,
-        startDestination = "login",
+        startDestination = "welcome",
         modifier = modifier
     ) {
+        composable("welcome") {
+            WelcomeScreen(
+                onContinue = { navController.navigate("login") }
+            )
+        }
         composable("login") {
             LoginScreen(
                 onLoginSuccess = {
                     navController.navigate(BottomNavItem.Explore.route) {
-                        popUpTo("login") { inclusive = true }
+                        popUpTo("welcome") { inclusive = true }
                     }
                 }
             )
@@ -67,7 +72,10 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
                     onBack = { navController.popBackStack() },
                     onRequestSent = {
                         navController.navigate(BottomNavItem.Meetings.route) {
-                            popUpTo(BottomNavItem.Explore.route) { inclusive = false }
+                            popUpTo(BottomNavItem.Explore.route) {
+                                inclusive = false
+                            }
+                            launchSingleTop = true
                         }
                     }
                 )

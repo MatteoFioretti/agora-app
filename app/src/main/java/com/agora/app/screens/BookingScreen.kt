@@ -20,7 +20,10 @@ import com.agora.app.data.AppState
 import com.agora.app.data.Meeting
 import com.agora.app.data.MeetingStatus
 import com.agora.app.data.Student
-
+import androidx.compose.material.icons.outlined.CalendarToday
+import androidx.compose.material.icons.outlined.LocationOn
+import androidx.compose.material.icons.outlined.VideoCall
+import androidx.compose.material3.HorizontalDivider
 import com.agora.app.ui.theme.*
 
 private val dateOptions = listOf("Today", "Tomorrow", "This Friday", "Next Monday")
@@ -39,7 +42,7 @@ fun BookingScreen(
     var selectedPlace by remember { mutableStateOf("") }
     var customPlace by remember { mutableStateOf("") }
     var requestSent by remember { mutableStateOf(false) }
-
+    var showRecap by remember { mutableStateOf(false) }
     val canSend = selectedDate.isNotEmpty() &&
             selectedTime.isNotEmpty() &&
             (selectedPlace.isNotEmpty() || customPlace.isNotBlank())
@@ -150,12 +153,119 @@ fun BookingScreen(
                         .fillMaxWidth()
                         .height(52.dp),
                     shape = RoundedCornerShape(12.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor =  AgoraPrimary)
+                    colors = ButtonDefaults.buttonColors(containerColor = AgoraPrimary)
                 ) {
                     Text("View in Meetings", style = MaterialTheme.typography.labelLarge)
                 }
             }
+        } else if (showRecap) {
+            val finalPlace = if (customPlace.isNotBlank()) customPlace else selectedPlace
+            Column(modifier = Modifier.padding(16.dp)) {
+                Text(
+                    text = "Review your request",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(bottom = 12.dp)
+                )
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(16.dp),
+                    colors = CardDefaults.cardColors(containerColor = Color.White)
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            AvatarCircle(name = student.name, color = AgoraPrimary)
+                            Spacer(modifier = Modifier.width(12.dp))
+                            Column {
+                                Text(
+                                    student.name,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    fontWeight = FontWeight.Medium
+                                )
+                                Text(
+                                    "${student.year} · ${student.faculty}",
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = Color.Gray
+                                )
+                            }
+                        }
+                        Spacer(modifier = Modifier.height(12.dp))
+                        HorizontalDivider(color = Color.LightGray.copy(alpha = 0.5f))
+                        Spacer(modifier = Modifier.height(12.dp))
+                        Text(
+                            text = "About: ${student.offers.first()}",
+                            style = MaterialTheme.typography.titleSmall,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(
+                                Icons.Outlined.CalendarToday,
+                                contentDescription = null,
+                                tint = Color.Gray,
+                                modifier = Modifier.size(15.dp)
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = "$selectedDate · $selectedTime",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = Color.DarkGray
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(
+                                if (finalPlace == "Online")
+                                    Icons.Outlined.VideoCall
+                                else
+                                    Icons.Outlined.LocationOn,
+                                contentDescription = null,
+                                tint = Color.Gray,
+                                modifier = Modifier.size(15.dp)
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = finalPlace,
+                                style = MaterialTheme.typography.bodySmall,
+                                color = Color.DarkGray
+                            )
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.height(16.dp))
+                Row(modifier = Modifier.fillMaxWidth()) {
+                    OutlinedButton(
+                        onClick = { showRecap = false },
+                        modifier = Modifier.weight(1f),
+                        shape = RoundedCornerShape(12.dp)
+                    ) {
+                        Text("Modify", color = Color.Gray)
+                    }
+                    Spacer(modifier = Modifier.width(12.dp))
+                    Button(
+                        onClick = {
+                            AppState.newMeeting = Meeting(
+                                id = 99,
+                                otherStudent = student,
+                                subject = student.offers.first(),
+                                date = selectedDate,
+                                time = selectedTime,
+                                place = finalPlace,
+                                status = MeetingStatus.PENDING
+                            )
+                            AppState.newMeetingBooked = true
+                            requestSent = true
+                        },
+                        modifier = Modifier.weight(1f),
+                        shape = RoundedCornerShape(12.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = AgoraPrimary)
+                    ) {
+                        Text("Confirm & send")
+                    }
+                }
+            }
         } else {
+
             BookingSection(title = "When?") {
                 FlowRow(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -229,29 +339,16 @@ fun BookingScreen(
             }
 
             Button(
-                onClick = {
-                    val place = if (customPlace.isNotBlank()) customPlace else selectedPlace
-                    AppState.newMeeting = Meeting(
-                        id = 99,
-                        otherStudent = student,
-                        subject = student.offers.first(),
-                        date = selectedDate,
-                        time = selectedTime,
-                        place = place,
-                        status = MeetingStatus.PENDING
-                    )
-                    AppState.newMeetingBooked = true
-                    requestSent = true
-                },
+                onClick = { showRecap = true },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
                     .height(52.dp),
                 shape = RoundedCornerShape(12.dp),
-                colors = ButtonDefaults.buttonColors(containerColor =  AgoraPrimary),
+                colors = ButtonDefaults.buttonColors(containerColor = AgoraPrimary),
                 enabled = canSend
             ) {
-                Text("Send request", style = MaterialTheme.typography.labelLarge)
+                Text("Preview request", style = MaterialTheme.typography.labelLarge)
             }
 
             Spacer(modifier = Modifier.height(16.dp))
