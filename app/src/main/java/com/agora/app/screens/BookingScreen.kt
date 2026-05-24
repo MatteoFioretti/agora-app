@@ -244,6 +244,7 @@ fun BookingScreen(
                     Spacer(modifier = Modifier.width(12.dp))
                     Button(
                         onClick = {
+                            AppState.cancelledMeetingIds = AppState.cancelledMeetingIds - 99
                             AppState.requestedStudentIds = AppState.requestedStudentIds + student.id
                             AppState.newMeeting = Meeting(
                                 id = 99,
