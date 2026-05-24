@@ -137,7 +137,7 @@ fun MeetingCard(meeting: Meeting, onConfirmSession: (Int) -> Unit = {}) {
         Column(modifier = Modifier.padding(16.dp)) {
 
             Row(verticalAlignment = Alignment.CenterVertically) {
-                AvatarCircle(name = meeting.otherStudent.name, color =  AgoraPrimary)
+                AvatarCircle(name = meeting.otherStudent.name, color = AgoraPrimary)
                 Spacer(modifier = Modifier.width(12.dp))
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
@@ -151,7 +151,15 @@ fun MeetingCard(meeting: Meeting, onConfirmSession: (Int) -> Unit = {}) {
                         color = Color.Gray
                     )
                 }
-                StatusBadge(status = meeting.status)
+                Column(horizontalAlignment = Alignment.End) {
+                    StatusBadge(status = meeting.status)
+                    Spacer(modifier = Modifier.height(4.dp))
+                    RatingRow(
+                        rating = meeting.otherStudent.rating,
+                        count = meeting.otherStudent.conversationCount,
+                        small = true
+                    )
+                }
             }
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -260,7 +268,7 @@ fun MeetingCard(meeting: Meeting, onConfirmSession: (Int) -> Unit = {}) {
                 MeetingStatus.COMPLETED -> {
                     meeting.rating?.let { rating ->
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            RatingRow(rating = rating, count = 0)
+                            RatingRow(rating = rating, count = 0, small = true)
                             Spacer(modifier = Modifier.width(8.dp))
                             meeting.feedbackNote?.let { note ->
                                 Text(

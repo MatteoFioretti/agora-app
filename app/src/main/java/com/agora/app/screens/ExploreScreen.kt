@@ -325,24 +325,24 @@ fun SkillChips(skills: List<String>, color: Color) {
 }
 
 @Composable
-fun RatingRow(rating: Double, count: Int) {
+fun RatingRow(rating: Double, count: Int, small: Boolean = false) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Icon(
             Icons.Filled.Star,
             contentDescription = null,
             tint = Color(0xFFFFC107),
-            modifier = Modifier.size(20.dp)
+            modifier = Modifier.size(if (small) 13.dp else 20.dp)
         )
         Spacer(modifier = Modifier.width(3.dp))
         Text(
             text = rating.toString(),
-            style = MaterialTheme.typography.bodySmall,
+            style = if (small) MaterialTheme.typography.labelSmall else MaterialTheme.typography.bodySmall,
             fontWeight = FontWeight.Medium,
             color = AgoraText
         )
         Text(
             text = " (${count})",
-            style = MaterialTheme.typography.bodySmall,
+            style = if (small) MaterialTheme.typography.labelSmall else MaterialTheme.typography.bodySmall,
             color = Color.Gray
         )
     }
