@@ -118,13 +118,12 @@ object FakeData {
         }
     }
     fun getAllMeetings(): List<Meeting> {
-        val allMeetings = if (AppState.newMeetingBooked && AppState.newMeeting != null) {
-            meetings + listOf(AppState.newMeeting!!)
-        } else {
-            meetings
-        }
+        val allMeetings = meetings + AppState.newMeetings
         return allMeetings
-            .filter { it.id !in AppState.cancelledMeetingIds }
+            .filter {
+                it.id !in AppState.cancelledMeetingIds &&
+                        it.id !in AppState.completedMeetingIds
+            }
             .sortedBy { meeting ->
                 when (meeting.status) {
                     MeetingStatus.CONFIRMED -> 0

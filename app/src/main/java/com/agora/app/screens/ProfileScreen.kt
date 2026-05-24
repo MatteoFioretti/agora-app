@@ -18,30 +18,26 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.agora.app.data.FakeData
-
+import com.agora.app.data.AppState
+import com.agora.app.data.CompletedSession
 import com.agora.app.ui.theme.*
 
-private data class ProfileSession(
-    val studentName: String,
-    val subject: String,
-    val wasHelper: Boolean,
-    val rating: Double,
-    val date: String
-)
+
 
 private val sessionHistory = listOf(
-    ProfileSession("Marco R.", "Python debugging", false, 4.9, "Last Monday"),
-    ProfileSession("Luca B.", "Programming basics", true, 5.0, "2 weeks ago"),
-    ProfileSession("Sofia L.", "Linear Algebra", false, 4.8, "3 weeks ago"),
-    ProfileSession("Pietro G.", "Algorithms", true, 4.7, "Last month"),
-    ProfileSession("Asel K.", "Data structures", true, 5.0, "Last month")
+    CompletedSession("Marco R.", "Python debugging", false, 4.9, "Last Monday"),
+    CompletedSession("Luca B.", "Programming basics", true, 5.0, "2 weeks ago"),
+    CompletedSession("Sofia L.", "Linear Algebra", false, 4.8, "3 weeks ago"),
+    CompletedSession("Pietro G.", "Algorithms", true, 4.7, "Last month"),
+    CompletedSession("Asel K.", "Data structures", true, 5.0, "Last month")
 )
 
 @Composable
 fun ProfileScreen() {
     val user = FakeData.currentUser
-    val helpedCount = sessionHistory.count { it.wasHelper }
-    val receivedCount = sessionHistory.count { !it.wasHelper }
+    val allHistory = AppState.dynamicConversationHistory + sessionHistory
+    val helpedCount = allHistory.count { it.wasHelper }
+    val receivedCount = allHistory.count { !it.wasHelper }
 
     LazyColumn(
         modifier = Modifier
@@ -106,7 +102,7 @@ fun ProfileScreen() {
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "3",
+                        text = "${AppState.creditBalance}",
                         fontSize = 56.sp,
                         fontWeight = FontWeight.Bold,
                         color = AgoraAccentDark
@@ -220,7 +216,7 @@ fun ProfileScreen() {
             )
         }
 
-        items(sessionHistory) { session ->
+        items(allHistory) { session ->
             Card(
                 modifier = Modifier
                     .fillMaxWidth()

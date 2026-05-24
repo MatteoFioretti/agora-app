@@ -24,7 +24,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.agora.app.data.Meeting
-
+import com.agora.app.data.AppState
+import com.agora.app.data.CompletedSession
 import com.agora.app.ui.theme.*
 
 @Composable
@@ -38,7 +39,7 @@ fun ConfirmSessionScreen(
     var creditTransferred by remember { mutableStateOf(false) }
 
     val animatedCredits by animateIntAsState(
-        targetValue = if (creditTransferred) 2 else 3,
+        targetValue = AppState.creditBalance,
         animationSpec = tween(durationMillis = 800),
         label = "credits"
     )
@@ -229,9 +230,9 @@ fun ConfirmSessionScreen(
                                 color =  AgoraPrimary.copy(alpha = 0.7f)
                             )
                             Text(
-                                text = "3 credits",
+                                text = "${AppState.creditBalance} credits",
                                 style = MaterialTheme.typography.labelMedium,
-                                color =  AgoraPrimary,
+                                color = AgoraPrimary,
                                 fontWeight = FontWeight.Bold
                             )
                         }
@@ -239,7 +240,18 @@ fun ConfirmSessionScreen(
                 }
                 Spacer(modifier = Modifier.height(12.dp))
                 Button(
-                    onClick = { creditTransferred = true },
+                    onClick = {
+                        AppState.creditBalance -= 1
+                        AppState.completedMeetingIds = AppState.completedMeetingIds + meeting.id
+                        AppState.dynamicConversationHistory = AppState.dynamicConversationHistory + CompletedSession(
+                            studentName = meeting.otherStudent.name,
+                            subject = meeting.subject,
+                            wasHelper = false,
+                            rating = selectedRating.toDouble(),
+                            date = "Today"
+                        )
+                        creditTransferred = true
+                    },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(10.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = AgoraAccentDark)
