@@ -301,9 +301,13 @@ fun AvatarCircle(name: String, color: Color) {
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun SkillChips(skills: List<String>, color: Color) {
-    Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+    FlowRow(
+        horizontalArrangement = Arrangement.spacedBy(6.dp),
+        verticalArrangement = Arrangement.spacedBy(4.dp)
+    ) {
         skills.forEach { skill ->
             Surface(
                 shape = RoundedCornerShape(20.dp),
