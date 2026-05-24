@@ -41,7 +41,6 @@ fun OfferHelpScreen() {
         faculty = FakeData.currentUser.faculty,
         offers = if (selectedOffers.isEmpty()) listOf("Your skills") else selectedOffers,
         needs = selectedNeeds,
-        tagline = "",
         rating = 0.0,
         conversationCount = 0
     )

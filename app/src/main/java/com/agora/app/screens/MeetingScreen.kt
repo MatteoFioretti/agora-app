@@ -215,8 +215,8 @@ fun MeetingCard(meeting: Meeting, onConfirmSession: (Int) -> Unit = {}) {
                             confirmButton = {
                                 TextButton(
                                     onClick = {
-                                        AppState.cancelledMeetingIds =
-                                            AppState.cancelledMeetingIds + meeting.id
+                                        AppState.cancelledMeetingIds = AppState.cancelledMeetingIds + meeting.id
+                                        AppState.requestedStudentIds = AppState.requestedStudentIds - meeting.otherStudent.id
                                         showCancelDialog = false
                                     }
                                 ) {

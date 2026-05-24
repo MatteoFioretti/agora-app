@@ -7,7 +7,6 @@ data class Student(
     val faculty: String,
     val offers: List<String>,
     val needs: List<String>,
-    val tagline: String,
     val rating: Double,
     val conversationCount: Int = 0
 )
