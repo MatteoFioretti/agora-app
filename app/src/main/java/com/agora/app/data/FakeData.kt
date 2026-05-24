@@ -132,11 +132,33 @@ object FakeData {
                 }
             }
     }
+
+    private val elenaV = Student(
+        id = 101,
+        name = "Elena V.",
+        year = "2nd year",
+        faculty = "Economics",
+        offers = listOf("Macroeconomics"),
+        needs = listOf("Programming"),
+        rating = 4.6,
+        conversationCount = 7
+    )
+
+    private val jamesK = Student(
+        id = 102,
+        name = "James K.",
+        year = "3rd year",
+        faculty = "Physics",
+        offers = listOf("Thermodynamics"),
+        needs = listOf("Mathematics"),
+        rating = 4.8,
+        conversationCount = 11
+    )
     val meetings = listOf(
         Meeting(
             id = 1,
-            otherStudent = allStudents[0],
-            subject = "Microeconomics",
+            otherStudent = elenaV,
+            subject = "Macroeconomics",
             date = "Tomorrow",
             time = "5:00 PM",
             place = "Library, Room 2",
@@ -144,8 +166,8 @@ object FakeData {
         ),
         Meeting(
             id = 2,
-            otherStudent = allStudents[1],
-            subject = "Macroeconomics",
+            otherStudent = jamesK,
+            subject = "Thermodynamics",
             date = "Friday",
             time = "3:00 PM",
             place = "Online",

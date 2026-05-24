@@ -331,18 +331,18 @@ fun RatingRow(rating: Double, count: Int) {
             Icons.Filled.Star,
             contentDescription = null,
             tint = Color(0xFFFFC107),
-            modifier = Modifier.size(14.dp)
+            modifier = Modifier.size(20.dp)
         )
         Spacer(modifier = Modifier.width(3.dp))
         Text(
             text = rating.toString(),
-            style = MaterialTheme.typography.labelSmall,
+            style = MaterialTheme.typography.bodySmall,
             fontWeight = FontWeight.Medium,
             color = AgoraText
         )
         Text(
             text = " (${count})",
-            style = MaterialTheme.typography.labelSmall,
+            style = MaterialTheme.typography.bodySmall,
             color = Color.Gray
         )
     }
