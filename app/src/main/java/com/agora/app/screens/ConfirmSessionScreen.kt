@@ -37,6 +37,7 @@ fun ConfirmSessionScreen(
     var selectedRating by remember { mutableStateOf(0) }
     var feedbackNote by remember { mutableStateOf("") }
     var creditTransferred by remember { mutableStateOf(false) }
+    var showTransferDialog by remember { mutableStateOf(false) }
 
     val animatedCredits by animateIntAsState(
         targetValue = AppState.creditBalance,
@@ -53,6 +54,40 @@ fun ConfirmSessionScreen(
         label = "scale"
     )
 
+    if (showTransferDialog) {
+        AlertDialog(
+            onDismissRequest = { showTransferDialog = false },
+            title = { Text("Confirm credit transfer") },
+            text = {
+                Text("You are about to send 1 credit to ${meeting.otherStudent.name.split(" ").first()}. This cannot be undone.")
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        AppState.creditBalance -= 1
+                        AppState.completedMeetingIds = AppState.completedMeetingIds + meeting.id
+                        AppState.dynamicConversationHistory = AppState.dynamicConversationHistory + CompletedSession(
+                            studentName = meeting.otherStudent.name,
+                            subject = meeting.subject,
+                            wasHelper = false,
+                            rating = selectedRating.toDouble(),
+                            date = "Today"
+                        )
+                        creditTransferred = true
+                        showTransferDialog = false
+                    }
+                ) {
+                    Text("Send credit", color = MaterialTheme.colorScheme.error)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showTransferDialog = false }) {
+                    Text("Cancel")
+                }
+            }
+        )
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -62,7 +97,7 @@ fun ConfirmSessionScreen(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background( AgoraPrimary)
+                .background(AgoraPrimary)
                 .padding(bottom = 24.dp)
         ) {
             Row(
@@ -152,7 +187,7 @@ fun ConfirmSessionScreen(
                     onClick = { step1Confirmed = true },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(10.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor =  AgoraPrimary)
+                    colors = ButtonDefaults.buttonColors(containerColor = AgoraPrimary)
                 ) {
                     Text("Yes, it happened", style = MaterialTheme.typography.labelLarge)
                 }
@@ -218,7 +253,7 @@ fun ConfirmSessionScreen(
                     Spacer(modifier = Modifier.width(12.dp))
                     Surface(
                         shape = RoundedCornerShape(10.dp),
-                        color =  AgoraPrimary.copy(alpha = 0.1f)
+                        color = AgoraPrimary.copy(alpha = 0.1f)
                     ) {
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
@@ -227,7 +262,7 @@ fun ConfirmSessionScreen(
                             Text(
                                 text = "Current balance",
                                 style = MaterialTheme.typography.labelSmall,
-                                color =  AgoraPrimary.copy(alpha = 0.7f)
+                                color = AgoraPrimary.copy(alpha = 0.7f)
                             )
                             Text(
                                 text = "${AppState.creditBalance} credits",
@@ -240,18 +275,7 @@ fun ConfirmSessionScreen(
                 }
                 Spacer(modifier = Modifier.height(12.dp))
                 Button(
-                    onClick = {
-                        AppState.creditBalance -= 1
-                        AppState.completedMeetingIds = AppState.completedMeetingIds + meeting.id
-                        AppState.dynamicConversationHistory = AppState.dynamicConversationHistory + CompletedSession(
-                            studentName = meeting.otherStudent.name,
-                            subject = meeting.subject,
-                            wasHelper = false,
-                            rating = selectedRating.toDouble(),
-                            date = "Today"
-                        )
-                        creditTransferred = true
-                    },
+                    onClick = { showTransferDialog = true },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(10.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = AgoraAccentDark)
@@ -298,7 +322,7 @@ fun ConfirmSessionScreen(
                         WalletBox(
                             label = "Your wallet",
                             credits = animatedCredits,
-                            color =  AgoraPrimary
+                            color = AgoraPrimary
                         )
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             Surface(
@@ -358,7 +382,7 @@ fun StepCard(
                         .size(26.dp)
                         .background(
                             if (isCompleted) AgoraAccent.copy(alpha = 0.15f)
-                            else  AgoraPrimary.copy(alpha = 0.1f),
+                            else AgoraPrimary.copy(alpha = 0.1f),
                             CircleShape
                         ),
                     contentAlignment = Alignment.Center
@@ -374,7 +398,7 @@ fun StepCard(
                         Text(
                             text = "$stepNumber",
                             style = MaterialTheme.typography.labelSmall,
-                            color =  AgoraPrimary,
+                            color = AgoraPrimary,
                             fontWeight = FontWeight.Bold
                         )
                     }
