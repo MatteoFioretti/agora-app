@@ -22,8 +22,6 @@ import com.agora.app.data.AppState
 import com.agora.app.data.CompletedSession
 import com.agora.app.ui.theme.*
 
-
-
 private val sessionHistory = listOf(
     CompletedSession("Marco R.", "Python debugging", false, 4.9, "Last Monday"),
     CompletedSession("Luca B.", "Programming basics", true, 5.0, "2 weeks ago"),
@@ -35,6 +33,8 @@ private val sessionHistory = listOf(
 @Composable
 fun ProfileScreen() {
     val user = FakeData.currentUser
+    val currentOffers = AppState.userOffers ?: user.offers
+    val currentNeeds = AppState.userNeeds ?: user.needs
     val allHistory = AppState.dynamicConversationHistory + sessionHistory
     val helpedCount = allHistory.count { it.wasHelper }
     val receivedCount = allHistory.count { !it.wasHelper }
@@ -49,7 +49,7 @@ fun ProfileScreen() {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background( AgoraPrimary)
+                    .background(AgoraPrimary)
                     .padding(start = 20.dp, end = 20.dp, top = 32.dp, bottom = 32.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -152,20 +152,28 @@ fun ProfileScreen() {
                             color = Color.Gray,
                             modifier = Modifier.padding(bottom = 8.dp)
                         )
-                        user.offers.forEach { skill ->
-                            Surface(
-                                shape = RoundedCornerShape(20.dp),
-                                color =  AgoraPrimary.copy(alpha = 0.1f),
-                                modifier = Modifier.padding(bottom = 4.dp)
-                            ) {
-                                Text(
-                                    text = skill,
-                                    style = MaterialTheme.typography.labelSmall,
-                                    color =  AgoraPrimary,
-                                    modifier = Modifier.padding(
-                                        horizontal = 10.dp, vertical = 4.dp
+                        if (currentOffers.isEmpty()) {
+                            Text(
+                                text = "Nothing added yet",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = Color.LightGray
+                            )
+                        } else {
+                            currentOffers.forEach { skill ->
+                                Surface(
+                                    shape = RoundedCornerShape(20.dp),
+                                    color = AgoraPrimary.copy(alpha = 0.1f),
+                                    modifier = Modifier.padding(bottom = 4.dp)
+                                ) {
+                                    Text(
+                                        text = skill,
+                                        style = MaterialTheme.typography.labelSmall,
+                                        color = AgoraPrimary,
+                                        modifier = Modifier.padding(
+                                            horizontal = 10.dp, vertical = 4.dp
+                                        )
                                     )
-                                )
+                                }
                             }
                         }
                     }
@@ -184,20 +192,28 @@ fun ProfileScreen() {
                             color = Color.Gray,
                             modifier = Modifier.padding(bottom = 8.dp)
                         )
-                        user.needs.forEach { need ->
-                            Surface(
-                                shape = RoundedCornerShape(20.dp),
-                                color = AgoraAccent.copy(alpha = 0.1f),
-                                modifier = Modifier.padding(bottom = 4.dp)
-                            ) {
-                                Text(
-                                    text = need,
-                                    style = MaterialTheme.typography.labelSmall,
-                                    color = AgoraAccentDark,
-                                    modifier = Modifier.padding(
-                                        horizontal = 10.dp, vertical = 4.dp
+                        if (currentNeeds.isEmpty()) {
+                            Text(
+                                text = "Nothing added yet",
+                                style = MaterialTheme.typography.labelSmall,
+                                color = Color.LightGray
+                            )
+                        } else {
+                            currentNeeds.forEach { need ->
+                                Surface(
+                                    shape = RoundedCornerShape(20.dp),
+                                    color = AgoraAccent.copy(alpha = 0.1f),
+                                    modifier = Modifier.padding(bottom = 4.dp)
+                                ) {
+                                    Text(
+                                        text = need,
+                                        style = MaterialTheme.typography.labelSmall,
+                                        color = AgoraAccentDark,
+                                        modifier = Modifier.padding(
+                                            horizontal = 10.dp, vertical = 4.dp
+                                        )
                                     )
-                                )
+                                }
                             }
                         }
                     }
@@ -232,7 +248,7 @@ fun ProfileScreen() {
                 ) {
                     AvatarCircle(
                         name = session.studentName,
-                        color = if (session.wasHelper)  AgoraPrimary else AgoraAccent
+                        color = if (session.wasHelper) AgoraPrimary else AgoraAccent
                     )
                     Spacer(modifier = Modifier.width(12.dp))
                     Column(modifier = Modifier.weight(1f)) {
@@ -256,14 +272,14 @@ fun ProfileScreen() {
                         Surface(
                             shape = RoundedCornerShape(8.dp),
                             color = if (session.wasHelper)
-                                 AgoraPrimary.copy(alpha = 0.1f)
+                                AgoraPrimary.copy(alpha = 0.1f)
                             else
                                 AgoraAccent.copy(alpha = 0.1f)
                         ) {
                             Text(
                                 text = if (session.wasHelper) "helped" else "received",
                                 style = MaterialTheme.typography.labelSmall,
-                                color = if (session.wasHelper)  AgoraPrimary else AgoraAccentDark,
+                                color = if (session.wasHelper) AgoraPrimary else AgoraAccentDark,
                                 modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
                             )
                         }
@@ -296,7 +312,7 @@ fun StatItem(value: String, label: String) {
             text = value,
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,
-            color =  AgoraPrimary
+            color = AgoraPrimary
         )
         Text(
             text = label,

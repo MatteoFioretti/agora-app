@@ -19,18 +19,14 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
     ) {
         composable("welcome") {
             WelcomeScreen(
-                onContinue = { navController.navigate("login") }
-            )
-        }
-        composable("login") {
-            LoginScreen(
-                onLoginSuccess = {
+                onContinue = {
                     navController.navigate(BottomNavItem.Explore.route) {
                         popUpTo("welcome") { inclusive = true }
                     }
                 }
             )
         }
+
         composable(BottomNavItem.Explore.route) {
             ExploreScreen(
                 onRequestConversation = { studentId ->

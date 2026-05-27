@@ -277,6 +277,7 @@ fun BookingScreen(
                         FilterChip(
                             selected = option == selectedDate,
                             onClick = { selectedDate = option },
+
                             label = { Text(option, style = MaterialTheme.typography.labelMedium) },
                             colors = FilterChipDefaults.filterChipColors(
                                 selectedContainerColor =  AgoraPrimary.copy(alpha = 0.12f),

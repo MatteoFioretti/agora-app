@@ -40,7 +40,7 @@ fun AgoraApp() {
 
     Scaffold(
         bottomBar = {
-            if (currentRoute != "login" && currentRoute != "welcome") {
+            if (currentRoute != "welcome") {
                 NavigationBar {
                     bottomNavItems.forEach { item ->
                         NavigationBarItem(

@@ -17,11 +17,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.agora.app.data.FakeData
 import com.agora.app.data.Student
 import com.agora.app.ui.theme.*
+
 @Composable
 fun ExploreScreen(onRequestConversation: (Int) -> Unit = {}) {
     var searchQuery by remember { mutableStateOf("") }
@@ -45,7 +47,7 @@ fun ExploreScreen(onRequestConversation: (Int) -> Unit = {}) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background( AgoraPrimary)
+                    .background(AgoraPrimary)
                     .padding(start = 20.dp, end = 20.dp, top = 24.dp, bottom = 28.dp)
             ) {
                 Text(
@@ -128,12 +130,44 @@ fun ExploreScreen(onRequestConversation: (Int) -> Unit = {}) {
                             )
                         }
                     }
-                    LazyRow(
-                        contentPadding = PaddingValues(horizontal = 16.dp),
-                        horizontalArrangement = Arrangement.spacedBy(12.dp)
-                    ) {
-                        items(perfectMatches, key = {it.id}) { student ->
-                            PerfectMatchCard(student = student, onRequestConversation = onRequestConversation)
+                    if (perfectMatches.isEmpty()) {
+                        Surface(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp, vertical = 4.dp),
+                            shape = RoundedCornerShape(12.dp),
+                            color = AgoraAccent.copy(alpha = 0.08f)
+                        ) {
+                            Column(
+                                modifier = Modifier.padding(16.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Text(
+                                    text = "No perfect matches yet",
+                                    style = MaterialTheme.typography.titleSmall,
+                                    fontWeight = FontWeight.Bold,
+                                    color = AgoraAccentDark
+                                )
+                                Spacer(modifier = Modifier.height(4.dp))
+                                Text(
+                                    text = "Update your offer to find students who match both ways",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = Color.Gray,
+                                    textAlign = TextAlign.Center
+                                )
+                            }
+                        }
+                    } else {
+                        LazyRow(
+                            contentPadding = PaddingValues(horizontal = 16.dp),
+                            horizontalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+                            items(perfectMatches, key = { it.id }) { student ->
+                                PerfectMatchCard(
+                                    student = student,
+                                    onRequestConversation = onRequestConversation
+                                )
+                            }
                         }
                     }
                 }
@@ -151,7 +185,7 @@ fun ExploreScreen(onRequestConversation: (Int) -> Unit = {}) {
                 )
             }
 
-            items(regularStudents, key = {it.id}) { student ->
+            items(regularStudents, key = { it.id }) { student ->
                 StudentCard(
                     student = student,
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp),
@@ -211,7 +245,9 @@ fun PerfectMatchCard(student: Student, onRequestConversation: (Int) -> Unit = {}
                 onClick = { onRequestConversation(student.id) },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(10.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = AgoraAccentDark)
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = AgoraAccentDark
+                )
             ) {
                 Text("Request", style = MaterialTheme.typography.labelMedium)
             }
@@ -228,7 +264,7 @@ fun StudentCard(student: Student, modifier: Modifier = Modifier, onRequestConver
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                AvatarCircle(name = student.name, color =  AgoraPrimary)
+                AvatarCircle(name = student.name, color = AgoraPrimary)
                 Spacer(modifier = Modifier.width(12.dp))
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
@@ -236,7 +272,6 @@ fun StudentCard(student: Student, modifier: Modifier = Modifier, onRequestConver
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Medium,
                         color = AgoraText
-
                     )
                     Text(
                         "${student.year} · ${student.faculty}",
@@ -262,7 +297,6 @@ fun StudentCard(student: Student, modifier: Modifier = Modifier, onRequestConver
                     }
                 }
             }
-
             Spacer(modifier = Modifier.height(12.dp))
             OutlinedButton(
                 onClick = { onRequestConversation(student.id) },
