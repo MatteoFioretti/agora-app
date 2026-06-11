@@ -40,7 +40,7 @@ fun AgoraApp() {
 
     Scaffold(
         bottomBar = {
-            if (currentRoute != "welcome") {
+            if (currentRoute != "offer_creation") {
                 NavigationBar {
                     bottomNavItems.forEach { item ->
                         NavigationBarItem(
@@ -55,8 +55,10 @@ fun AgoraApp() {
                                     launchSingleTop = true
                                 }
                             }
+
                         )
                     }
+
                 }
             }
         }

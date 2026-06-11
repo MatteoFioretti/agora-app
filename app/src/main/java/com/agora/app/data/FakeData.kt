@@ -96,16 +96,16 @@ object FakeData {
     )
 
     fun getPerfectMatches(): List<Student> {
-        val myOffers = AppState.userOffers ?: currentUser.offers
-        val myNeeds = AppState.userNeeds ?: currentUser.needs
+        val allMyOffers = AppState.userOffersList.flatMap { it.offers }
+        val allMyNeeds = AppState.userOffersList.flatMap { it.needs }
         return allStudents.filter { student ->
             student.id !in AppState.requestedStudentIds &&
                     student.offers.any { offer ->
-                        myNeeds.any { need ->
+                        allMyNeeds.any { need ->
                             offer.contains(need, ignoreCase = true)
                         }
                     } && student.needs.any { need ->
-                myOffers.any { offer ->
+                allMyOffers.any { offer ->
                     need.contains(offer, ignoreCase = true)
                 }
             }

@@ -33,8 +33,6 @@ private val sessionHistory = listOf(
 @Composable
 fun ProfileScreen() {
     val user = FakeData.currentUser
-    val currentOffers = AppState.userOffers ?: user.offers
-    val currentNeeds = AppState.userNeeds ?: user.needs
     val allHistory = AppState.dynamicConversationHistory + sessionHistory
     val helpedCount = allHistory.count { it.wasHelper }
     val receivedCount = allHistory.count { !it.wasHelper }
@@ -132,94 +130,7 @@ fun ProfileScreen() {
             }
         }
 
-        item {
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 6.dp),
-                shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = Color.White, contentColor = AgoraText)
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp)
-                ) {
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = "I offer",
-                            style = MaterialTheme.typography.labelMedium,
-                            color = Color.Gray,
-                            modifier = Modifier.padding(bottom = 8.dp)
-                        )
-                        if (currentOffers.isEmpty()) {
-                            Text(
-                                text = "Nothing added yet",
-                                style = MaterialTheme.typography.labelSmall,
-                                color = Color.LightGray
-                            )
-                        } else {
-                            currentOffers.forEach { skill ->
-                                Surface(
-                                    shape = RoundedCornerShape(20.dp),
-                                    color = AgoraPrimary.copy(alpha = 0.1f),
-                                    modifier = Modifier.padding(bottom = 4.dp)
-                                ) {
-                                    Text(
-                                        text = skill,
-                                        style = MaterialTheme.typography.labelSmall,
-                                        color = AgoraPrimary,
-                                        modifier = Modifier.padding(
-                                            horizontal = 10.dp, vertical = 4.dp
-                                        )
-                                    )
-                                }
-                            }
-                        }
-                    }
-                    Box(
-                        modifier = Modifier
-                            .width(1.dp)
-                            .height(60.dp)
-                            .align(Alignment.CenterVertically)
-                            .background(Color.LightGray.copy(alpha = 0.5f))
-                    )
-                    Spacer(modifier = Modifier.width(16.dp))
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = "I need",
-                            style = MaterialTheme.typography.labelMedium,
-                            color = Color.Gray,
-                            modifier = Modifier.padding(bottom = 8.dp)
-                        )
-                        if (currentNeeds.isEmpty()) {
-                            Text(
-                                text = "Nothing added yet",
-                                style = MaterialTheme.typography.labelSmall,
-                                color = Color.LightGray
-                            )
-                        } else {
-                            currentNeeds.forEach { need ->
-                                Surface(
-                                    shape = RoundedCornerShape(20.dp),
-                                    color = AgoraAccent.copy(alpha = 0.1f),
-                                    modifier = Modifier.padding(bottom = 4.dp)
-                                ) {
-                                    Text(
-                                        text = need,
-                                        style = MaterialTheme.typography.labelSmall,
-                                        color = AgoraAccentDark,
-                                        modifier = Modifier.padding(
-                                            horizontal = 10.dp, vertical = 4.dp
-                                        )
-                                    )
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+
 
         item {
             Text(

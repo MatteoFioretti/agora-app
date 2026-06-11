@@ -14,18 +14,10 @@ import com.agora.app.screens.*
 fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
     NavHost(
         navController = navController,
-        startDestination = "welcome",
+        startDestination = BottomNavItem.Explore.route,
         modifier = modifier
     ) {
-        composable("welcome") {
-            WelcomeScreen(
-                onContinue = {
-                    navController.navigate(BottomNavItem.Explore.route) {
-                        popUpTo("welcome") { inclusive = true }
-                    }
-                }
-            )
-        }
+
 
         composable(BottomNavItem.Explore.route) {
             ExploreScreen(
@@ -34,7 +26,11 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
                 }
             )
         }
-        composable(BottomNavItem.OfferHelp.route) { OfferHelpScreen() }
+        composable(BottomNavItem.OfferHelp.route) {
+            OfferHelpScreen(
+                onCreateOffer = { navController.navigate("offer_creation") }
+            )
+        }
         composable(BottomNavItem.Meetings.route) {
             MeetingsScreen(
                 onConfirmSession = { meetingId ->
@@ -43,6 +39,12 @@ fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
             )
         }
         composable(BottomNavItem.Profile.route) { ProfileScreen() }
+        composable("offer_creation") {
+            OfferCreationScreen(
+                onBack = { navController.popBackStack() },
+                onOfferPosted = { navController.popBackStack() }
+            )
+        }
         composable(
             route = "confirm_session/{meetingId}",
             arguments = listOf(navArgument("meetingId") { type = NavType.IntType })

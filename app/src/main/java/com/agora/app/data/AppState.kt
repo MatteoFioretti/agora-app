@@ -20,6 +20,8 @@ object AppState {
     var requestedStudentIds by mutableStateOf(setOf<Int>())
     var creditBalance by mutableStateOf(3)
     var dynamicConversationHistory by mutableStateOf(listOf<CompletedSession>())
-    var userOffers: List<String>? by mutableStateOf(null)
-    var userNeeds: List<String>? by mutableStateOf(null)
+    var userOffersList by mutableStateOf(
+        listOf(UserOffer(id = 1, offers = listOf("Programming"), needs = listOf("Economics")))
+    )
+    var nextOfferId by mutableStateOf(2)
 }
